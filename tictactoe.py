@@ -29,6 +29,21 @@ def player_input():
         return ('X','O')
     else:
         return ('O','X')
+    
+def ask_player(marker):
+    position = 0
+    while True:
+        try:
+            position = int(input(f'Next position for Player ({marker}) ?: '))
+            if position in range(1,10):
+                return position
+#               break
+            else:
+                print('Sorry, please input a number between 1-9')                
+                continue
+        except:
+            print('Sorry, please input a number between 1-9')
+        
 
 def place_marker(board, marker, position):
     """
@@ -88,10 +103,9 @@ while True:
             print('Hard Luck..Nobody Won!')
             print('========================')
             break    
-        position = 0
-        while position not in range(1,10):
-            
-            position = int(input(f'Next position for First Player ({first_marker}) ?: '))
+        position = ask_player(first_marker )
+        #while position not in range(1,10):
+          #  position = int(input(f'Next position for First Player ({first_marker}) ?: '))
         if space_check(board, position):
             place_marker(board, first_marker, position)
         else:
@@ -100,7 +114,7 @@ while True:
         display_board(board)  
         if win_check(board, first_marker):
             print('\n====================================')
-            print(f'Congratulations! First Player ({first_marker}) Won')
+            print(f'Congratulations! ({first_marker}) Won')
             print('====================================')
             break
         
@@ -110,10 +124,8 @@ while True:
             print('DRAW !!..')
             print('========================')
             break   
-        position = 0
-        while position not in range(1,10):
-            
-            position = int(input(f'Next position for Second Player ({second_marker}) ?: '))
+        
+        position = ask_player(second_marker )
         if space_check(board, position):
             place_marker(board, second_marker, position)
         else:
@@ -123,7 +135,7 @@ while True:
         display_board(board)  
         if win_check(board, second_marker):
             print('\n====================================')
-            print(f'Congratulations! Second Player ({second_marker}) Won')
+            print(f'Congratulations! ({second_marker}) Won')
             print('====================================')
             break
             
